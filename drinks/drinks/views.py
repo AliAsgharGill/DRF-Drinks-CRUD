@@ -8,4 +8,5 @@ def drink_list(request):
     drinks = Drink.objects.all()
     # serializing the drink data
     serializer = DrinkSerializer(drinks, many=True)
-    return JsonResponse({"drinks":serializer.data},safe=False)
+    # returning json 
+    return JsonResponse({"drinks":serializer.data}) # if we need to send data other then object then we need to pass another argument safe=False
