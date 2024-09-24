@@ -18,8 +18,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from drinks import views
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("drinks/", views.drink_list)
+    path("drinks/", views.DrinkList.as_view(), name="list"),
+    path("drinks/create/", views.CreateDrink.as_view(), name="create"),
+    path("drinks/<int:pk>/", views.UpdateDrink.as_view(), name="update"),
+    path("drinks/delete/<int:pk>/", views.DeleteDrink.as_view(), name="delete"),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     
 ]
